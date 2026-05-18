@@ -107,6 +107,15 @@ Le prestazioni degli agenti vengono valutate confrontandole con quelle di un age
 
 L’obiettivo finale del progetto è verificare la capacità degli algoritmi di Reinforcement Learning di apprendere strategie efficaci in un ambiente dinamico e parzialmente stocastico, evidenziandone punti di forza e differenze comportamentali.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{pacman_environment.png}
+    \caption{Ambiente Pac-Man utilizzato per l’addestramento degli agenti di Reinforcement Learning.}
+    \label{fig:pacman_environment}
+\end{figure}
+
+La Figura~\ref{fig:pacman_environment} mostra l’ambiente sviluppato per il progetto. L’agente Pac-Man deve raccogliere il cibo evitando il fantasma all’interno della griglia contenente ostacoli.
+
 
 \chapter{Descrizione dell’Ambiente}
 
@@ -450,6 +459,27 @@ I grafici mostrano che entrambi gli algoritmi riescono ad apprendere strategie e
 
 Nonostante il rumore presente nei grafici, dovuto alla stochasticità dell’ambiente, il trend generale conferma la presenza di apprendimento.
 
+\section{Video dimostrativo della simulazione}
+
+Per osservare qualitativamente il comportamento degli agenti addestrati, è stato realizzato un video dimostrativo della simulazione dell’ambiente Pac-Man.
+
+Nel video è possibile osservare:
+\begin{itemize}
+    \item il comportamento dell’agente addestrato tramite Q-Learning;
+    \item il comportamento dell’agente addestrato tramite SARSA;
+    \item la capacità degli agenti di evitare il fantasma;
+    \item la raccolta del cibo durante l’esecuzione.
+\end{itemize}
+
+Il video completo è disponibile tramite il seguente QR code:
+
+\begin{center}
+\qrcode[height=5cm]{https://raw.githubusercontent.com/ludovicap/Intelligent-Systems-for-Robotics/main/simulazione_video.mov}
+\end{center}
+
+\begin{center}
+\href{https://github.com/ludovicap/Intelligent-Systems-for-robotics}{Repository GitHub del progetto}
+\end{center}
 
 \chapter{Valutazione delle Prestazioni}
 
