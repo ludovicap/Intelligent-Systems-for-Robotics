@@ -81,9 +81,11 @@ Ludovica Perroni
 \end{titlepage}
 
 % ------------------ TABLE OF CONTENTS ------------------
-\renewcommand{\contentsname}{Indice}
-\tableofcontents
+
+
 \newpage
+
+\pagenumbering{roman}
 
 \begin{abstract}
 
@@ -94,6 +96,15 @@ L’ambiente include elementi di stochasticità, dovuti sia al movimento del fan
 Le prestazioni ottenute vengono confrontate con quelle di un agente casuale utilizzando diverse metriche, tra cui reward media, numero medio di cibi raccolti, numero medio di step sopravvissuti e collision rate. I risultati mostrano che entrambi gli algoritmi di Reinforcement Learning riescono ad apprendere strategie efficaci, superando nettamente il comportamento casuale. Inoltre, il confronto evidenzia differenze coerenti con la teoria tra l’approccio off-policy del Q-Learning e quello on-policy di SARSA.
 
 \end{abstract}
+
+\clearpage
+
+\renewcommand{\contentsname}{Indice}
+\tableofcontents
+
+\clearpage
+
+\pagenumbering{arabic}
 
 \chapter{Introduzione}
 
@@ -410,6 +421,24 @@ In particolare:
     \item \texttt{main.py} esegue il training e la valutazione degli agenti.
 \end{itemize}
 
+\section{Implementazione degli algoritmi di Reinforcement Learning}
+
+Gli algoritmi Q-Learning e SARSA sono stati implementati manualmente in Python, senza utilizzare librerie esterne di Reinforcement Learning o framework predefiniti.
+
+In particolare, sono stati sviluppati direttamente:
+\begin{itemize}
+    \item la rappresentazione della Q-table;
+    \item la politica epsilon-greedy;
+    \item le regole di aggiornamento dei valori Q;
+    \item il ciclo di training episodico;
+    \item la gestione dell’interazione tra agente e ambiente.
+\end{itemize}
+
+La Q-table è stata implementata tramite un dizionario Python, nel quale a ogni stato dell’ambiente è associato un vettore contenente i valori Q relativi alle azioni possibili.
+
+L’aggiornamento dei valori Q avviene secondo le equazioni classiche degli algoritmi Q-Learning e SARSA descritte nei capitoli precedenti.
+
+
 \section{Gestione della simulazione}
 
 La simulazione viene eseguita episodicamente. A ogni episodio:
@@ -588,7 +617,7 @@ La Figura~\ref{fig:performance_comparison} mostra il confronto della reward medi
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{performance_comparison.png}
-    \caption{Confronto della reward media tra gli agenti.}
+    \caption{Confronto della reward media ottenuta dagli agenti durante la fase di valutazione.}
     \label{fig:performance_comparison}
 \end{figure}
 
@@ -604,7 +633,7 @@ La Figura~\ref{fig:food_comparison} confronta il numero medio di cibi raccolti.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{food_comparison.png}
-    \caption{Confronto del numero medio di cibi raccolti.}
+    \caption{Confronto del numero medio di cibi raccolti dagli agenti durante gli episodi di test.}
     \label{fig:food_comparison}
 \end{figure}
 \FloatBarrier
@@ -617,7 +646,7 @@ La Figura~\ref{fig:steps_comparison} mostra il numero medio di step sopravvissut
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{steps_comparison.png}
-    \caption{Confronto del numero medio di step sopravvissuti.}
+    \caption{Confronto del numero medio di step sopravvissuti dagli agenti.}
     \label{fig:steps_comparison}
 \end{figure}
 \FloatBarrier
@@ -632,7 +661,7 @@ La Figura~\ref{fig:collision_comparison} mostra il tasso di collisione con il fa
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{collision_comparison.png}
-    \caption{Confronto del collision rate tra gli agenti.}
+    \caption{Confronto della frequenza di collisione con il fantasma tra gli agenti.}
     \label{fig:collision_comparison}
 \end{figure}
 \FloatBarrier
@@ -644,7 +673,7 @@ Al contrario, Q-Learning e SARSA mantengono collision rate molto bassi, conferma
 
 Il confronto tra i due algoritmi evidenzia differenze coerenti con la teoria del Reinforcement Learning.
 
-Q-Learning ottiene prestazioni leggermente superiori in termini di reward media, numero di cibi raccolti e collision rate. Questo comportamento è coerente con la natura off-policy dell’algoritmo, che tende a privilegiare strategie più aggressive e orientate alla massimizzazione della reward futura.
+Nel training eseguito, SARSA ottiene prestazioni leggermente superiori in termini di reward media, numero medio di cibi raccolti e collision rate. Tuttavia, la differenza tra i due algoritmi è contenuta, indicando che entrambi riescono ad apprendere politiche efficaci per l’ambiente proposto. Questo comportamento è coerente con la natura off-policy dell’algoritmo, che tende a privilegiare strategie più aggressive e orientate alla massimizzazione della reward futura.
 
 SARSA, invece, mostra un comportamento leggermente più prudente. Poiché aggiorna i valori Q considerando le azioni realmente selezionate dalla politica corrente, comprese quelle esplorative, tende a sviluppare strategie più conservative.
 
@@ -720,56 +749,22 @@ Infine, i risultati sono stati ottenuti eseguendo un singolo training per algori
 
 \chapter{Conclusioni}
 
-In questo progetto è stato sviluppato un ambiente semplificato ispirato al gioco Pac-Man per analizzare il comportamento di algoritmi di Reinforcement Learning tabulare. In particolare, sono stati implementati e confrontati due algoritmi classici: Q-Learning e SARSA.
+In questo progetto è stato sviluppato un ambiente Pac-Man semplificato per studiare l’applicazione di tecniche di Reinforcement Learning basate su Q-table.
 
-L’ambiente progettato include elementi di stochasticità dovuti sia alla generazione casuale del cibo sia al comportamento parzialmente casuale del fantasma. Questo ha reso il problema sufficientemente dinamico da richiedere strategie adattive da parte degli agenti.
+Sono stati implementati manualmente gli algoritmi Q-Learning e SARSA, senza utilizzare librerie esterne di Reinforcement Learning. Entrambi gli agenti sono stati addestrati attraverso episodi ripetuti, imparando progressivamente strategie efficaci per raccogliere il cibo ed evitare il fantasma.
 
-I risultati ottenuti mostrano chiaramente che entrambi gli algoritmi di Reinforcement Learning riescono ad apprendere politiche efficaci. Rispetto all’agente casuale, Q-Learning e SARSA ottengono reward medie significativamente più elevate, raccolgono un numero maggiore di cibi e riducono drasticamente il tasso di collisione con il fantasma.
-
-L’analisi dei grafici di training conferma inoltre la presenza di apprendimento durante gli episodi. Nonostante il rumore presente nelle reward e nei valori Q, dovuto alla natura stocastica dell’ambiente, il trend generale evidenzia un miglioramento progressivo delle performance.
-
-Il confronto tra Q-Learning e SARSA ha permesso di osservare differenze coerenti con la teoria del Reinforcement Learning. Q-Learning ha mostrato un comportamento leggermente più aggressivo e orientato alla massimizzazione della reward, mentre SARSA ha evidenziato una strategia più prudente e conservativa.
-
-Nel complesso, il progetto dimostra come anche algoritmi tabulari relativamente semplici siano in grado di apprendere comportamenti efficaci in ambienti dinamici e non completamente deterministici.
-
-Possibili sviluppi futuri includono:
-
+I risultati sperimentali mostrano che entrambi gli algoritmi ottengono prestazioni significativamente superiori rispetto a un agente casuale. In particolare, gli agenti addestrati riescono a:
 \begin{itemize}
-    \item utilizzo di strategie di epsilon decay;
-    \item esecuzione di più training con seed differenti;
-    \item introduzione di ambienti più complessi;
-    \item utilizzo di Deep Reinforcement Learning;
-    \item aggiunta di più fantasmi o mappe di dimensioni maggiori.
+    \item aumentare la reward media;
+    \item raccogliere una quantità maggiore di cibo;
+    \item sopravvivere per un numero maggiore di step;
+    \item ridurre drasticamente il numero di collisioni.
 \end{itemize}
 
-Questi miglioramenti permetterebbero di estendere ulteriormente il progetto verso scenari più realistici e complessi.
+Nel training eseguito, SARSA ha ottenuto prestazioni leggermente superiori rispetto a Q-Learning, mostrando un comportamento più stabile e conservativo. Questo risultato è coerente con la natura on-policy dell’algoritmo SARSA, particolarmente adatto ad ambienti parzialmente stocastici.
 
-\begin{thebibliography}{9}
+L’analisi del Q-value iniziale ha mostrato un andamento crescente durante il training, indicando che gli agenti apprendono progressivamente una politica migliore. Tuttavia, il valore non converge perfettamente a una costante, a causa della presenza di esplorazione epsilon-greedy e della componente stocastica dell’ambiente.
 
-\bibitem{slides}
-Francesco Pupo,
-\textit{Lecture Slides - Intelligent Systems for Robotics},
-University of Calabria, Academic Year 2025--2026.
-
-\bibitem{sutton}
-Richard S. Sutton and Andrew G. Barto,
-\textit{Reinforcement Learning: An Introduction},
-Second Edition,
-MIT Press, 2015.
-
-\bibitem{Pygame}
-Pygame Documentation,
-\url{https://www.pygame.org/docs/}
-
-\bibitem{NumPy}
-NumPy Documentation,
-\url{https://numpy.org/doc/}
-
-\bibitem{Matplotlib}
-Matplotlib Documentation,
-\url{https://matplotlib.org/stable/}
-
-\end{thebibliography}
-
+Come possibile sviluppo futuro, il progetto potrebbe essere esteso utilizzando tecniche di Deep Reinforcement Learning, come Deep Q-Networks (DQN), per affrontare ambienti più complessi e spazi degli stati di dimensione maggiore.
 
 \end{document}
