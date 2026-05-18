@@ -12,6 +12,7 @@
 \usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage{amssymb}
 \usepackage{qrcode}
+\usepackage{placeins}
 
 
 \hypersetup{
@@ -80,6 +81,7 @@ Ludovica Perroni
 \end{titlepage}
 
 % ------------------ TABLE OF CONTENTS ------------------
+\renewcommand{\contentsname}{Indice}
 \tableofcontents
 \newpage
 
@@ -113,6 +115,8 @@ L’obiettivo finale del progetto è verificare la capacità degli algoritmi di 
     \caption{Ambiente Pac-Man utilizzato per l’addestramento degli agenti di Reinforcement Learning.}
     \label{fig:pacman_environment}
 \end{figure}
+
+\FloatBarrier
 
 La Figura~\ref{fig:pacman_environment} mostra l’ambiente sviluppato per il progetto. L’agente Pac-Man deve raccogliere il cibo evitando il fantasma all’interno della griglia contenente ostacoli.
 
@@ -368,6 +372,59 @@ Di conseguenza:
 
 Nel contesto del progetto, questa differenza si riflette nelle performance finali degli agenti e nel loro comportamento durante il training.
 
+\chapter{Implementazione del Progetto}
+
+Il progetto è stato sviluppato interamente in Python, utilizzando diverse librerie per la gestione dell’ambiente, dell’addestramento degli agenti e della visualizzazione grafica.
+
+\section{Tecnologie utilizzate}
+
+Le principali librerie utilizzate sono:
+
+\begin{itemize}
+    \item \textbf{NumPy}: utilizzata per la gestione della Q-table e delle operazioni numeriche;
+    
+    \item \textbf{Pygame}: utilizzata per la realizzazione grafica dell’ambiente Pac-Man e per la simulazione interattiva;
+    
+    \item \textbf{Matplotlib}: utilizzata per la generazione dei grafici di training e dei confronti tra gli agenti;
+    
+    \item \textbf{JSON e CSV}: utilizzati per il salvataggio dei risultati sperimentali.
+\end{itemize}
+
+\section{Struttura del progetto}
+
+Il progetto è organizzato in più file Python, ciascuno dedicato a una specifica funzionalità.
+
+In particolare:
+
+\begin{itemize}
+    \item \texttt{environment.py} definisce l’ambiente Pac-Man;
+    
+    \item \texttt{train\_qlearning.py} implementa l’algoritmo Q-Learning;
+    
+    \item \texttt{train\_sarsa.py} implementa l’algoritmo SARSA;
+    
+    \item \texttt{visualizer.py} gestisce la visualizzazione grafica della simulazione;
+    
+    \item \texttt{save\_results.py} salva grafici e metriche finali;
+    
+    \item \texttt{main.py} esegue il training e la valutazione degli agenti.
+\end{itemize}
+
+\section{Gestione della simulazione}
+
+La simulazione viene eseguita episodicamente. A ogni episodio:
+
+\begin{enumerate}
+    \item l’ambiente viene inizializzato;
+    \item Pac-Man interagisce con la griglia;
+    \item il fantasma si muove secondo una politica semi-stocastica;
+    \item l’agente aggiorna la Q-table;
+    \item vengono salvate le metriche di training.
+\end{enumerate}
+
+Durante la fase finale del progetto è stata inoltre implementata una visualizzazione grafica in tempo reale, utile per osservare qualitativamente il comportamento degli agenti addestrati.
+
+
 \chapter{Training degli Agenti}
 
 Il processo di training consiste nell’interazione ripetuta tra l’agente e l’ambiente. Durante ogni episodio, Pac-Man osserva lo stato corrente, seleziona un’azione tramite la politica $\epsilon$-greedy e aggiorna la Q-table in base alla reward ricevuta e allo stato successivo.
@@ -415,9 +472,11 @@ La Figura~\ref{fig:qlearning_training} mostra l’andamento del training dell’
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{qlearning_training.png}
-    \caption{Training dell’agente Q-Learning.}
+    \caption{Andamento della reward e del Q-value durante il training dell’agente Q-Learning}
     \label{fig:qlearning_training}
 \end{figure}
+
+\FloatBarrier
 
 Nel grafico è possibile osservare che:
 
@@ -439,10 +498,11 @@ La Figura~\ref{fig:sarsa_training} mostra il training dell’agente SARSA.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{sarsa_training.png}
-    \caption{Training dell’agente SARSA.}
+    \caption{Andamento della reward e del Q-value durante il training dell’agente SARSA}
     \label{fig:sarsa_training}
 \end{figure}
 
+\FloatBarrier
 Anche SARSA mostra un miglioramento progressivo delle performance durante il training. La media mobile cresce gradualmente e raggiunge valori elevati nelle fasi finali dell’addestramento.
 
 Rispetto al Q-Learning, SARSA presenta un comportamento leggermente più conservativo. Questo risultato è coerente con la natura on-policy dell’algoritmo, che aggiorna la Q-table considerando le azioni realmente selezionate dalla politica corrente, comprese quelle esplorative.
@@ -532,6 +592,7 @@ La Figura~\ref{fig:performance_comparison} mostra il confronto della reward medi
     \label{fig:performance_comparison}
 \end{figure}
 
+\FloatBarrier
 L’agente casuale ottiene una reward media fortemente negativa, poiché tende a collidere rapidamente con il fantasma senza raccogliere quantità significative di cibo.
 
 Gli agenti Q-Learning e SARSA ottengono invece reward medie elevate, dimostrando di aver appreso strategie efficaci.
@@ -546,7 +607,7 @@ La Figura~\ref{fig:food_comparison} confronta il numero medio di cibi raccolti.
     \caption{Confronto del numero medio di cibi raccolti.}
     \label{fig:food_comparison}
 \end{figure}
-
+\FloatBarrier
 Gli agenti addestrati riescono a raccogliere una quantità molto maggiore di cibo rispetto all’agente random. Questo comportamento indica che gli algoritmi hanno appreso politiche in grado di raggiungere rapidamente gli obiettivi presenti nell’ambiente.
 
 \section{Confronto della sopravvivenza}
@@ -559,7 +620,7 @@ La Figura~\ref{fig:steps_comparison} mostra il numero medio di step sopravvissut
     \caption{Confronto del numero medio di step sopravvissuti.}
     \label{fig:steps_comparison}
 \end{figure}
-
+\FloatBarrier
 L’agente casuale sopravvive mediamente per pochi step, mentre gli agenti RL riescono quasi sempre a raggiungere il limite massimo di 100 step per episodio.
 
 Questo risultato suggerisce che gli agenti hanno imparato strategie efficaci per evitare il fantasma.
@@ -574,7 +635,7 @@ La Figura~\ref{fig:collision_comparison} mostra il tasso di collisione con il fa
     \caption{Confronto del collision rate tra gli agenti.}
     \label{fig:collision_comparison}
 \end{figure}
-
+\FloatBarrier
 L’agente casuale presenta un collision rate pari al 100\%, indicando che termina praticamente tutti gli episodi entrando in collisione con il fantasma.
 
 Al contrario, Q-Learning e SARSA mantengono collision rate molto bassi, confermando la capacità di apprendere comportamenti di sopravvivenza efficaci.
@@ -683,7 +744,32 @@ Possibili sviluppi futuri includono:
 
 Questi miglioramenti permetterebbero di estendere ulteriormente il progetto verso scenari più realistici e complessi.
 
+\begin{thebibliography}{9}
 
+\bibitem{slides}
+Francesco Pupo,
+\textit{Lecture Slides - Intelligent Systems for Robotics},
+University of Calabria, Academic Year 2025--2026.
+
+\bibitem{sutton}
+Richard S. Sutton and Andrew G. Barto,
+\textit{Reinforcement Learning: An Introduction},
+Second Edition,
+MIT Press, 2015.
+
+\bibitem{Pygame}
+Pygame Documentation,
+\url{https://www.pygame.org/docs/}
+
+\bibitem{NumPy}
+NumPy Documentation,
+\url{https://numpy.org/doc/}
+
+\bibitem{Matplotlib}
+Matplotlib Documentation,
+\url{https://matplotlib.org/stable/}
+
+\end{thebibliography}
 
 
 \end{document}
