@@ -1,0 +1,20 @@
+{
+    "random": {
+        "average_reward": -72.1,
+        "average_food_eaten": 0.22,
+        "average_steps": 12.03,
+        "collision_rate": 1.0
+    },
+    "q_learning": {
+        "average_reward": 177.37,
+        "average_food_eaten": 20.87,
+        "average_steps": 97.37,
+        "collision_rate": 0.04
+    },
+    "sarsa": {
+        "average_reward": 176.72,
+        "average_food_eaten": 21.01,
+        "average_steps": 96.61,
+        "collision_rate": 0.07
+    }
+}

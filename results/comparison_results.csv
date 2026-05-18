@@ -1,0 +1,4 @@
+Agent,Avg Reward,Avg Food,Avg Steps,Collision Rate
+Random,-72.1,0.22,12.03,1.0
+Q-learning,177.37,20.87,97.37,0.04
+SARSA,176.72,21.01,96.61,0.07
